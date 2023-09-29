@@ -20,20 +20,20 @@
     /* background-image: url('img/ios.webp'); */
     background-image: url('img/bg.jpg');
     background-size: cover;
-    /* background-position: 50% 0; */
+    background-position: 50% 0;
     /* background-color: white; */
 }
 
 
 .statusbar {
-    transition: all .3s;
+    transition: all .4s var(--easing);
     position: absolute;
     z-index: 40;
     left: 0;
     right: 0;
     /* background-color: #ff0000a0; */
     /* backdrop-filter: blur(8px); */
-    /* color: white; */
+    color: white;
     font-size: .7rem;
     font-weight: 600;
     padding: 8px 27px;
@@ -58,7 +58,10 @@
         right: -8px;
         scale: 0.45;
     }
+}
 
+.app-statusbar {
+    color: black;
 }
 
 .app-grid {

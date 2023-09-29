@@ -2,6 +2,7 @@ const app = document.getElementById('app')
 const device = document.getElementById('device')
 const appClip = document.getElementById('app-clip')
 const statusBar = document.getElementById('statusbar')
+const appStatusBar = document.getElementById('app-statusbar')
 const icon = document.getElementById('app-icon-content')
 const navbar = document.getElementById('navbar-area')
 const home = document.getElementById('home')
@@ -103,21 +104,23 @@ function onDragCanceled() {
 
 function updateHomeState() {
     if (!State.isOnHome) {
-        bg.style.filter = 'blur(12px)'
+        bg.style.filter = 'blur(12px) brightness(0.45)'
         bg.style.scale = '1.2'
-        statusBar.style.color = 'black'
-
+        statusBar.style.opacity = 0
+        
         icon.style.scale = (app.clientWidth / 42)
         icon.style.transition = appTransition
         icon.style.translate = `${State.iconBoundary.xb}px ${State.iconBoundary.yb}px`
         icon.style.height = `${19.5 / 9 * 42}px`
         console.log(`${19.5 / 9 * 42}px`)
-
+        
         setTimeout(() => {
             app.style.opacity = 1
             icon.style.opacity = 0
         }, 80)
-
+        
+        appStatusBar.style.opacity = 1
+        
         app.style.pointerEvents = 'auto'
         appClip.style.height = '100%'
         app.style.transition = appTransition
@@ -128,15 +131,16 @@ function updateHomeState() {
         // app.style.display = ''
     } else {
         bg.style.scale = '1'
-        bg.style.filter = 'blur(0px)'
-        statusBar.style.color = 'white'
+        bg.style.filter = 'blur(0px) brightness(1)'
+        statusBar.style.opacity = 1
         app.style.pointerEvents = 'none'
-
+        
         icon.style.transition = appTransition
         icon.style.scale = 1
         icon.style.height = '42px'
         icon.style.translate = `0 0`
-
+        appStatusBar.style.opacity = 0
+        
         setTimeout(() => {
             app.style.opacity = 0
             icon.style.opacity = 1
