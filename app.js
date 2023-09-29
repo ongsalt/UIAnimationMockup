@@ -116,7 +116,7 @@ function updateHomeState() {
         setTimeout(() => {
             app.style.opacity = 1
             icon.style.opacity = 0
-        }, 100)
+        }, 80)
 
         app.style.pointerEvents = 'auto'
         appClip.style.height = '100%'
