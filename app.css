@@ -1,0 +1,66 @@
+:root {
+    --app-bg: #F3F2F7;
+}
+
+.app {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 28px;
+}
+
+.app-clip {
+    position: relative;
+    background-color: var(--app-bg);
+    padding: 16px;
+    box-sizing: border-box;
+    padding-top: 48px;
+    overflow: hidden;
+    border-radius: 28px;
+    height: 100%;
+    width: 100%;
+}
+
+.search {
+    margin-top: 16px;
+    background-color: #00000010;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: .8rem;
+    color: #00000040;
+}
+
+.list {
+    margin-top: 16px;
+    border-radius: 6px;
+    background-color: white;
+    padding: 0 12px;
+    
+    .list-item {
+        font-size: .9rem;
+        padding: 10px 0;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #00001015;
+        }
+    }
+}
+
+.navbar {
+    background-color: black;
+    border-radius: 2px;
+    height: 4px;
+    bottom: 4px;
+    width: 110px;
+}
+
+.navbar-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
