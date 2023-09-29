@@ -100,8 +100,7 @@
     width: 42px;
     height: 42px;
 
-    background: #6d6dc2;
-    /* fallback for old browsers */
+    background: radial-gradient(circle at 30% 107%, #f0e568 0%, #fde297 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 
     .wiki-logo {
         aspect-ratio: 1/1;
@@ -118,10 +117,16 @@
 
 }
 
+.settings-app-icon {
+    background-color: rgb(112, 126, 227) !important;
+}
+
 .settings_icon {
     color: white;
 }
 
-.home-hide {
-
+.ig-icon {
+    scale: .6;
+    color: white;
+    filter: invert();
 }
