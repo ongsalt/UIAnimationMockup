@@ -12,7 +12,9 @@ const swicthOnHome = document.getElementById('switch-onhome')
 
 const appHeight = bg.clientHeight
 
-const appTransition = 'all .6s var(--easing), opacity 0s, height .6s var(--easing2)'
+const DURATION = '.6s'
+
+const appTransition = `all ${DURATION} var(--easing), opacity 0s, height ${DURATION} var(--easing2)`
 
 const State = {
     isOnHome: false,
@@ -30,12 +32,13 @@ const State = {
     iconBoundary: getIconBoundary()
 }
 
+
 swicthOnHome.addEventListener('click', () => {
     State.isOnHome = !State.isOnHome
     updateHomeState()
 })
 
-// I donct wknow other wvent
+// I donct wknow other event
 swicthOnHome.addEventListener('touchend', () => {
     State.isOnHome = !State.isOnHome
     updateHomeState()
@@ -66,26 +69,22 @@ function getIconBoundary() {
     }
 }
 
-function launchAnimation() {
-    app.style.scale = 1
-    app.style.translate = `0px 0px`
-}
-
 function transform() {
     app.style.transition = 'all .05s linear'
     icon.style.transition = 'all .05s linear'
+    appClip.style.transition = 'all .05s linear'
 
     // Should be gradually harder to drag after reached certain point
-    const scale = Math.max((1 + (State.offset.y / 400)), 0.2) // Move upward is negative
+    const scale = Math.max((1 + (State.offset.y / 400)), 0.3) // Move upward is negative
     app.style.scale = scale
     icon.style.scale = scale * (app.clientWidth / 42)
+    appClip.style.borderRadius = `${28 / (scale ** 0.6)}px`
+
 
     const posY = appHeight - (-State.offset.y) - appHeight * scale
     console.log(scale)
     app.style.translate = `${State.offset.x}px ${State.offset.y}px`
     icon.style.translate = `${State.iconBoundary.xb + State.offset.x}px ${State.iconBoundary.yb + posY}px`
-
-
 }
 
 function onDragCanceled() {
@@ -95,65 +94,65 @@ function onDragCanceled() {
         State.isOnHome = true
         updateHomeState()
     } else {
-        app.style.transition = 'all .5s'
+        app.style.transition = `all ${DURATION}`
         app.style.scale = 1
         app.style.translate = `0px 0px`
         icon.style.translate = `${State.iconBoundary.xb}px ${State.iconBoundary.yb}px`
+        appClip.style.borderRadius = '28px'
     }
 }
 
 function updateHomeState() {
+    icon.style.transition = appTransition
+    appClip.style.transition = appTransition
+    app.style.transition = appTransition
+
     if (!State.isOnHome) {
-        bg.style.filter = 'blur(12px) brightness(0.45)'
+        bg.style.filter = 'blur(18px) brightness(0.65)'
         bg.style.scale = '1.2'
+
         statusBar.style.opacity = 0
-        
+        appStatusBar.style.opacity = 1
+
         icon.style.scale = (app.clientWidth / 42)
-        icon.style.transition = appTransition
         icon.style.translate = `${State.iconBoundary.xb}px ${State.iconBoundary.yb}px`
         icon.style.height = `${19.5 / 9 * 42}px`
-        console.log(`${19.5 / 9 * 42}px`)
-        
+
         setTimeout(() => {
             app.style.opacity = 1
             icon.style.opacity = 0
         }, 80)
-        
-        appStatusBar.style.opacity = 1
-        
+
         app.style.pointerEvents = 'auto'
+        app.style.scale = 1
+        app.style.translate = `0px 0px`
+        
         appClip.style.height = '100%'
-        app.style.transition = appTransition
+        appClip.style.borderRadius = '28px'
 
-
-        launchAnimation()
-
-        // app.style.display = ''
     } else {
         bg.style.scale = '1'
         bg.style.filter = 'blur(0px) brightness(1)'
+
         statusBar.style.opacity = 1
-        app.style.pointerEvents = 'none'
+        appStatusBar.style.opacity = 0
         
-        icon.style.transition = appTransition
         icon.style.scale = 1
         icon.style.height = '42px'
         icon.style.translate = `0 0`
-        appStatusBar.style.opacity = 0
+        
         
         setTimeout(() => {
             app.style.opacity = 0
             icon.style.opacity = 1
         }, 250)
-
-        // app.style.opacity = 0.5
+        
+        app.style.pointerEvents = 'none'
         app.style.scale = (42 / app.clientWidth)
-        app.style.transition = appTransition
         app.style.translate = `${State.iconBoundary.x}px ${State.iconBoundary.y}px`
-        console.log(State.iconBoundary)
-        appClip.style.height = '46.153846153%'
 
-        // app.style.display = 'none'
+        appClip.style.borderRadius = `${(app.clientWidth / 42) * 10}px`
+        appClip.style.height = '46.153846153%'
     }
 }
 
@@ -210,8 +209,7 @@ document.addEventListener('touchmove', onDrag)
 
 app.style.transformOrigin = 'bottom'
 icon.style.transformOrigin = 'top'
-appClip.style.transition = 'all .6s var(--easing)'
-icon.style.transition = 'all .6s var(--easing)'
+appClip.style.transition = appTransition
 
 updateHomeState()
 
